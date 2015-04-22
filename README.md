@@ -1,4 +1,4 @@
-## Payonline
+## Payonline  [![Gem Version](https://badge.fury.io/rb/payonline.svg)](http://badge.fury.io/rb/payonline) [![Code Climate](https://codeclimate.com/github/I0Result/payonline/badges/gpa.svg)](https://codeclimate.com/github/I0Result/payonline) 
 
 This is a thin wrapper library that makes using PayOnline API a bit easier.
 
