@@ -1,4 +1,3 @@
-require 'yaml'
 require 'payonline/config'
 require 'payonline/payment_gateway'
 require 'payonline/payment_response'
