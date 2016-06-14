@@ -1,5 +1,6 @@
 require 'payonline/config'
 require 'payonline/payment_gateway'
+require 'payonline/rebill_gateway'
 require 'payonline/payment_response'
 require 'payonline/signature'
 
