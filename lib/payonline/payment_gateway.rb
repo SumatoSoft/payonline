@@ -28,10 +28,11 @@ module Payonline
     private
 
     def prepare_params(params)
-      params.with_indifferent_access
+      params
+        .with_indifferent_access
         .slice(*REQUIRED_PARAMS)
         .merge(default_params)
-        .merge(amount: '%.2f' % params[:amount])
+        .merge(amount: format('%.2f', params[:amount]))
     end
 
     def default_params

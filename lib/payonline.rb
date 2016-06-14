@@ -5,8 +5,6 @@ require 'payonline/payment_response'
 require 'payonline/signature'
 
 module Payonline
-  extend self
-
   def self.configuration
     @configuration ||= Config.new
   end
