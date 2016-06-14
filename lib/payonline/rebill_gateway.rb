@@ -1,7 +1,7 @@
 module Payonline
   class RebillGateway
     SIGNED_PARAMS = %w(order_id amount currency)
-    REQUIRED_PARAMS = %w(rebill_anchor order_id amount currency)
+    PERMITTED_PARAMS = %w(rebill_anchor order_id amount currency)
     BASE_URL = 'https://secure.payonlinesystem.com'
 
     def initialize(params = {})
@@ -19,7 +19,7 @@ module Payonline
     def prepare_params(params)
       params
         .with_indifferent_access
-        .slice(*REQUIRED_PARAMS)
+        .slice(*PERMITTED_PARAMS)
         .merge(default_params)
         .merge(amount: format('%.2f', params[:amount]))
     end
