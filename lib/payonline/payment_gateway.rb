@@ -1,8 +1,10 @@
 module Payonline
   class PaymentGateway
     class Params < SimpleDelegator
-
-      REQUIED_PARAMS = %w(order_id amount currency valid_until order_description return_url fail_url return_url)
+      REQUIED_PARAMS = %w(
+        order_id amount currency valid_until
+        order_description return_url fail_url return_url
+      )
 
       def initialize(params)
         @params = prepare_params(params)
@@ -42,7 +44,7 @@ module Payonline
 
     SIGNED_PARAMS = %w(order_id amount currency valid_until order_description)
 
-    def initialize(params={})
+    def initialize(params = {})
       @params = Params.new(params.with_indifferent_access)
     end
 
@@ -56,14 +58,14 @@ module Payonline
 
     def url_by_kind_of_payment(type, language = 'ru')
       case type.to_s
-        when 'qiwi'
-          "https://secure.payonlinesystem.com/#{language}/payment/select/qiwi/"
-        when 'webmoney'
-          "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
-        when 'yandexmoney'
-          "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
-        when 'card'
-          "https://secure.payonlinesystem.com/#{language}/payment/"
+      when 'qiwi'
+        "https://secure.payonlinesystem.com/#{language}/payment/select/qiwi/"
+      when 'webmoney'
+        "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
+      when 'yandexmoney'
+        "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
+      when 'card'
+        "https://secure.payonlinesystem.com/#{language}/payment/"
       end
     end
   end
