@@ -41,7 +41,8 @@ module Payonline
     PAYMENT_TYPE_URL = {
       qiwi: 'select/qiwi/',
       webmoney: 'select/webmoney/',
-      yandexmoney: 'select/yandexmoney/'
+      yandexmoney: 'select/yandexmoney/',
+      masterpass: 'select/masterpass/'
     }
 
     def initialize(params = {})
