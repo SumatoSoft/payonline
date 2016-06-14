@@ -20,7 +20,7 @@ module Payonline
     end
 
     def payment_url(type: :card, language: :ru)
-      params = Payonline::Signature.sign_params(@params, SIGNED_PARAMS)
+      params = Payonline::Signature.new(@params, SIGNED_PARAMS).sign
 
       "#{BASE_URL}/#{language}/payment/#{PAYMENT_TYPE_URL[type]}?#{params.to_query}"
     end
