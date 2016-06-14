@@ -2,7 +2,9 @@ module Payonline
   class Signature
     def initialize(params, keys = [])
       @keys = keys
-      @params = params.merge(merchant_id: Payonline.configuration.merchant_id)
+
+      # The order of parameter keys matters
+      @params = params.reverse_merge(merchant_id: Payonline.configuration.merchant_id)
       @keys.unshift(:merchant_id) if @keys.present?
 
       @params[:security_key] = digest

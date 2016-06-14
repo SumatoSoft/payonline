@@ -1,12 +1,8 @@
 module Payonline
   class PaymentGateway
-    SIGNED_PARAMS = %w(order_id amount currency valid_until order_description)
     BASE_URL = 'https://secure.payonlinesystem.com'
-
-    REQUIRED_PARAMS = %w(
-      order_id amount currency valid_until
-      order_description return_url fail_url return_url
-    )
+    SIGNED_PARAMS = %w(order_id amount currency valid_until order_description)
+    REQUIRED_PARAMS = %w(order_id amount currency valid_until order_description return_url fail_url)
 
     PAYMENT_TYPE_URL = {
       qiwi: 'select/qiwi/',
