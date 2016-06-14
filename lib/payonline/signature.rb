@@ -13,8 +13,7 @@ module Payonline
       digest = self.digest(params, keys)
       params['security_key'] = digest
       params['content_type'] = 'text'
-
-      params
+      params.transform_keys { |key| key.to_s.camelize }
     end
   end
 end
