@@ -1,6 +1,6 @@
 module Payonline
   class RebillGateway
-    SIGNED_PARAMS = %w(order_id amount currency)
+    SIGNED_PARAMS = %w(rebill_anchor order_id amount currency)
     PERMITTED_PARAMS = %w(rebill_anchor order_id amount currency)
     BASE_URL = 'https://secure.payonlinesystem.com'
 
