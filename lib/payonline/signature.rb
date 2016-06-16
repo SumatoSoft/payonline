@@ -17,7 +17,6 @@ module Payonline
     end
 
     def digest
-      byebug
       Digest::MD5.hexdigest(digest_data)
     end
 
@@ -38,8 +37,10 @@ module Payonline
       digest_params = @params.slice(*@keys) if @keys.present?
       digest_params[:private_security_key] = Payonline.configuration.private_security_key
 
+      # HACK: PayOnline sends OrderId but TransactionID (notice the letter case)
       digest_params
         .transform_keys { |key| key.to_s.camelize }
+        .transform_keys { |key| key == 'TransactionId' ? 'TransactionID' : key }
         .map { |key, value| "#{key}=#{value}" }
         .join('&')
     end
