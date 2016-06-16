@@ -20,12 +20,12 @@ $ bundle
 
 ## Configuring
 
-Create an initializer: `config/initializers/payonline.rb`
+Create an initializer: `config/initializers/payonline.rb`:
 
 ```ruby
 Payonline.config do |config|
   config.merchant_id = '12345'
-  config.private_security_key = 'your-private-security-ke'
+  config.private_security_key = 'your-private-security-key'
   config.return_url = 'https://example.com/payments/success'
   config.fail_url = 'https://example.com/payments/fail'
 end
@@ -33,18 +33,18 @@ end
 
 ## Usage
 
-Get payment URL
+Get payment URL:
 
 ```ruby
 Payonline::PaymentGateway.new(order_id: 1, amount: 2.0, currency: 'RUB').payment_url
 ```
 
-Check callback
+Implement a callback action that will be called by PayOnline after a transaction is completed:
 
 ```ruby
 @response = Payonline::PaymentResponse.new(params)
 
-if response.valid_payment?
+if @response.valid_payment?
   Order.find(@response.order_id).set_paid!
 end
 ```
@@ -54,6 +54,6 @@ end
 1. Fork it
 2. Clone it `git clone https://github.com/yuri-zubov/payonline`
 3. Create your feature branch `git checkout -b my-new-feature`
-4. Commit your changes `git commit -am 'Add some feature`
+4. Commit your changes `git commit -am 'Add some feature'`
 5. Push to the branch `git push origin my-new-feature`
 6. Create new pull request through Github
