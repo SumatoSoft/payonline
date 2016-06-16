@@ -18,7 +18,7 @@ module Payonline
         array << response.keys.find { |e| e.underscore == key }
       end
 
-      params.security_key == Payonline::Signature.digest(response, keys)
+      params.security_key == Payonline::Signature.new(response, keys).digest
     end
 
     private

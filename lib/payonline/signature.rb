@@ -15,11 +15,11 @@ module Payonline
       @params.transform_keys { |key| key.to_s.camelize }
     end
 
-    private
-
     def digest
       Digest::MD5.hexdigest(digest_data)
     end
+
+    private
 
     def digest_data
       digest_params = @params.slice(*@keys) if @keys.present?
