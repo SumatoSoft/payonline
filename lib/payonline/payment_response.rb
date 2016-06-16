@@ -24,9 +24,9 @@ module Payonline
     private
 
     def normalize_params
-      result = response.each_with_object({}) do |(k, v), params|
-        params[k.underscore] = v
-      end.with_indifferent_access
+      response
+        .with_indifferent_access
+        .transform_keys { |key| key.to_s.underscore }
     end
   end
 end
