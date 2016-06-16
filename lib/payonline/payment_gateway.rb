@@ -1,6 +1,7 @@
 module Payonline
   class PaymentGateway
     BASE_URL = 'https://secure.payonlinesystem.com'
+
     SIGNED_PARAMS = %w(order_id amount currency valid_until order_description)
     PERMITTED_PARAMS = %w(order_id amount currency valid_until order_description return_url fail_url)
 
