@@ -15,7 +15,7 @@ module Payonline
 
     def valid_payment?
       keys = RESPONSE_PARAMS.each_with_object([]).each do |key, array|
-        array << response.keys.select{ |e| e.underscore == key }.first
+        array << response.keys.find { |e| e.underscore == key }
       end
 
       params.security_key == Payonline::Signature.digest(response, keys)
