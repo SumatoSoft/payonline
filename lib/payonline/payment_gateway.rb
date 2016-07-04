@@ -1,7 +1,7 @@
 module Payonline
   class PaymentGateway
     class Params < SimpleDelegator
-      REQUIED_PARAMS = %w(
+      REQUIRED_PARAMS = %w(
         order_id amount currency valid_until
         order_description return_url fail_url return_url
       )
@@ -25,48 +25,33 @@ module Payonline
       def prepare_params(params)
         params[:amount] = '%.2f' % params[:amount]
 
-        default_params = { return_url: return_url, fail_url: fail_url }
-        params.merge(default_params)
+        params.merge(
+          return_url: Payonline.configuration.return_url,
+          fail_url: Payonline.configuration.fail_url
+        )
       end
 
       def filter_params
-        @params.select! { |k, v| REQUIED_PARAMS.include?(k) && v }
-      end
-
-      def return_url
-        @return_url ||= Payonline.configuration.return_url
-      end
-
-      def fail_url
-        @fail_url ||= Payonline.configuration.fail_url
+        @params.select! { |key, value| REQUIRED_PARAMS.include?(key) && value }
       end
     end
 
     SIGNED_PARAMS = %w(order_id amount currency valid_until order_description)
+    BASE_URL = 'https://secure.payonlinesystem.com'
+    PAYMENT_TYPE_URL = {
+      qiwi: 'select/qiwi/',
+      webmoney: 'select/webmoney/',
+      yandexmoney: 'select/yandexmoney/'
+    }
 
     def initialize(params = {})
       @params = Params.new(params.with_indifferent_access)
     end
 
-    def get_payment_url(type = 'card')
+    def payment_url(type: :card, language: :ru)
       params = Payonline::Signature.sign_params(@params, SIGNED_PARAMS)
 
-      "#{url_by_kind_of_payment(type)}?#{params.to_query}"
-    end
-
-    private
-
-    def url_by_kind_of_payment(type, language = 'ru')
-      case type.to_s
-      when 'qiwi'
-        "https://secure.payonlinesystem.com/#{language}/payment/select/qiwi/"
-      when 'webmoney'
-        "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
-      when 'yandexmoney'
-        "https://secure.payonlinesystem.com/#{language}/payment/select/webmoney/"
-      when 'card'
-        "https://secure.payonlinesystem.com/#{language}/payment/"
-      end
+      "#{BASE_URL}/#{language}/payment/#{PAYMENT_TYPE_URL[type]}?#{params.to_query}"
     end
   end
 end
