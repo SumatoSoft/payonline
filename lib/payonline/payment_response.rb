@@ -2,31 +2,28 @@ module Payonline
   class PaymentResponse
     extend Forwardable
 
-    attr_accessor :response, :params
+    attr_accessor :data, :params
 
-    RESPONSE_PARAMS = %w(date_time transaction_id order_id amount currency)
+    SIGNED_PARAMS = %i(date_time transaction_id order_id amount currency)
 
-    def_delegators :params, *RESPONSE_PARAMS
+    def_delegators :data, *SIGNED_PARAMS
 
-    def initialize(response = {})
-      self.response = response
-      self.params = OpenStruct.new(normalize_params)
+    def initialize(params = {})
+      @params = prepare_params(params)
+      @data = OpenStruct.new(@params)
     end
 
     def valid_payment?
-      keys = RESPONSE_PARAMS.each_with_object([]).each do |key, array|
-        array << response.keys.find { |e| e.underscore == key }
-      end
-
-      params.security_key == Payonline::Signature.digest(response, keys)
+      keys = SIGNED_PARAMS.select { |key| @params.key?(key) }
+      @params[:security_key] == Payonline::Signature.new(@params, keys, false).digest
     end
 
     private
 
-    def normalize_params
-      result = response.each_with_object({}) do |(k, v), params|
-        params[k.underscore] = v
-      end.with_indifferent_access
+    def prepare_params(params)
+      params
+        .transform_keys { |key| key.to_s.underscore }
+        .with_indifferent_access
     end
   end
 end

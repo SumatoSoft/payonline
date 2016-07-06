@@ -15,11 +15,11 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/I0Result/payonline'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.12'
+  spec.add_development_dependency 'activesupport', '~> 4.2.6'
   spec.add_development_dependency 'rake', '~> 11.2'
 end

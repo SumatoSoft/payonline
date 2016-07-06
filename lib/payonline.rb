@@ -1,12 +1,14 @@
-require 'yaml'
+require 'active_support/all'
+require 'httparty'
+
 require 'payonline/config'
 require 'payonline/payment_gateway'
 require 'payonline/payment_response'
+require 'payonline/rebill_gateway'
+require 'payonline/rebill_response'
 require 'payonline/signature'
 
 module Payonline
-  extend self
-
   def self.configuration
     @configuration ||= Config.new
   end
