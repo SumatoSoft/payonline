@@ -12,3 +12,5 @@ FrozenStringLiteralComment:
   Enabled: false
 MutableConstant:
   Enabled: false
+MultilineMethodCallIndentation:
+  EnforcedStyle: indented
