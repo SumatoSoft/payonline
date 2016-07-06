@@ -14,7 +14,7 @@ module Payonline
     end
 
     def valid_payment?
-      keys = SIGNED_PARAMS.select { |key| @params.has_key?(key) }
+      keys = SIGNED_PARAMS.select { |key| @params.key?(key) }
       @params[:security_key] == Payonline::Signature.new(@params, keys, false).digest
     end
 
