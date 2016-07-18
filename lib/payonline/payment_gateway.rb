@@ -30,7 +30,7 @@ module Payonline
       params
         .with_indifferent_access
         .slice(*PERMITTED_PARAMS)
-        .merge(default_params){ |key, important, default| important }
+        .merge(default_params){ |_, important, _| important }
         .merge(amount: format('%.2f', params[:amount]))
     end
 
